@@ -40,12 +40,11 @@ func main() {
 		cmd.Stderr = &stderr
 
 		if err := cmd.Run(); err != nil {
-			logResult(r.GetSystemErrorTaskResult(err))
-			return
-		}
-
-		if stderr.Len() > 0 {
-			logResult(r.GetCompileErrorTaskResult(stderr.String()))
+			if stderr.Len() > 0 {
+				logResult(r.GetCompileErrorTaskResult(stderr.String()))
+			} else {
+				logResult(r.GetSystemErrorTaskResult(err))
+			}
 			return
 		}
 	}
